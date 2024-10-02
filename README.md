@@ -1,14 +1,14 @@
-# Scholarship Platform Frontend
+# Public Opinion Poll Frontend
 
-This project is the frontend interface for the **StudyScholarships** smart contract built on the Aptos blockchain. It allows users to create, view, apply for, and distribute scholarships in a decentralized way. The project is developed using **React** and **TypeScript**, with **Ant Design** for the user interface and **Aptos SDK** for blockchain interactions.
+This project is the frontend interface for the **Public Opinion Poll** smart contract built on the Aptos blockchain. It enables users to create, participate in, and view the results of polls in a decentralized manner. The application is developed using **React** and **TypeScript**, utilizing **Ant Design** for the user interface and **Aptos SDK** for blockchain interactions.
 
 ## Features
 
-- **Create Scholarships**: Donors can create scholarships by specifying the amount, eligibility criteria, and duration.
-- **View Scholarships**: Applicants can browse available scholarships, including detailed information about each one.
-- **Apply for Scholarships**: Eligible students can apply for scholarships by submitting their academic information.
-- **Distribute Scholarships**: Donors can distribute funds to qualified recipients.
-- **Emergency Close**: Donors can close a scholarship and withdraw remaining funds if needed.
+- **Create Polls**: Users can create new polls by specifying the question and options.
+- **Vote on Polls**: Participants can cast their votes for options in open polls.
+- **View Poll Results**: Users can view the total votes for each option and overall results for the polls.
+- **Close Polls**: Poll creators can close polls once the voting period is over.
+- **Voter Identification**: Votes are associated with users' DID strings for identity verification.
 
 ## Prerequisites
 
@@ -57,12 +57,11 @@ Once the server starts, open your browser and navigate to `http://localhost:5174
 
 ## Interacting with the Application
 
-1. **Connect Wallet**: On the landing page, click "Connect Wallet" and connect your **Petra Wallet** (or any Aptos-compatible wallet).
-2. **Create a Scholarship**: Navigate to the "Create Scholarship" section, fill in the scholarship details (e.g., name, amount per applicant, GPA criteria, field of study), and submit. This will create a scholarship on the blockchain.
-3. **View Scholarships**: Browse through the list of available scholarships and see the details for each.
-4. **Apply for a Scholarship**: As a student, you can apply to scholarships by providing your GPA and field of study.
-5. **Distribute Scholarships**: Donors can distribute the scholarship amount to qualified recipients.
-6. **Emergency Close**: Donors can close the scholarship early and withdraw any remaining funds.
+1. **Connect Wallet**: On the landing page, click "Connect Wallet" to connect your **Petra Wallet** (or any Aptos-compatible wallet).
+2. **Create a Poll**: Navigate to the "Create Poll" section, fill in the poll details (e.g., question and options), and submit. This will create a poll on the blockchain.
+3. **Vote on a Poll**: Participants can vote for their preferred option by providing their DID and selecting an option from the available choices.
+4. **View Poll Results**: Users can browse through active polls and view detailed results, including the total votes for each option.
+5. **Close a Poll**: Poll creators can close polls once they decide the voting period is over.
 
 ## Tech Stack
 
@@ -74,38 +73,24 @@ Once the server starts, open your browser and navigate to `http://localhost:5174
 
 ## Smart Contract Overview
 
-The **StudyScholarships** smart contract manages the creation and distribution of scholarships. Below is a summary of key functions.
+The **Public Opinion Poll** smart contract manages the creation and voting of polls. Below is a summary of key functions.
 
-### Token Functions
+### Poll Management
 
-1. **initialize_balance(user: &signer)**: Initializes a zero balance for the user.
-2. **issue_tokens(user: &signer, amount: u64)**: Issues tokens to a user (typically a donor).
-3. **get_balance(account: address)**: Retrieves the balance of a user.
-4. **transfer_tokens(from: &signer, to: address, amount: u64)**: Transfers tokens between accounts.
-
-### Scholarship Management
-
-1. **initialize_scholarships(user: &signer)**: Initializes a scholarship list for the user.
-2. **create_scholarship(user: &signer, scholarship_id: u64, name: String, amount_per_applicant: u64, total_applicants: u64, criteria_gpa: u64, field_of_study: String, duration: u64)**: Creates a new scholarship.
-3. **apply_for_scholarship(user: &signer, scholarship_id: u64, gpa: u64, field_of_study: String)**: Allows students to apply for a specific scholarship.
-4. **distribute_scholarship(user: &signer, scholarship_id: u64)**: Distributes the scholarship funds to all qualified recipients.
-5. **emergency_close_scholarship(user: &signer, scholarship_id: u64)**: Closes the scholarship and refunds any remaining balance to the donor.
-
-### Viewing Functions
-
-1. **view_donor_address_of_scholarship(scholarship_id: u64)**: Returns the donor's address for a specific scholarship.
-2. **view_all_scholarships()**: Retrieves a list of all scholarships.
-3. **view_all_scholarships_created_by_address(account: address)**: Retrieves scholarships created by a specific donor.
-4. **view_all_scholarships_applied_by_address(account: address)**: Retrieves a list of scholarships an applicant has applied to.
+1. **create_poll(account: &signer, question: string::String, options: vector<string::String>)**: Creates a new poll with the specified question and options.
+2. **vote(did: string::String, poll_id: u64, option_index: u64)**: Allows users to cast their vote on a specific poll.
+3. **close_poll(account: &signer, poll_id: u64)**: Closes the poll and prevents further voting.
+4. **get_poll_results(poll_id: u64)**: Retrieves the total votes and individual option votes for a specific poll.
+5. **get_poll(poll_id: u64)**: Fetches details about a specific poll, including the question and options.
 
 ## Testing the Platform
 
 - Use the **Aptos Faucet** to fund your test accounts on **Devnet**.
-- Interactions like creating, applying, and distributing scholarships trigger blockchain transactions. Ensure you have enough test tokens for gas fees.
+- Interactions such as creating polls and voting will trigger blockchain transactions. Ensure you have enough test tokens for gas fees.
 - Check your wallet for transaction requests when interacting with the platform.
 
 ## Additional Notes
 
 - **Responsive Design**: This platform is fully responsive using **Tailwind CSS**. It supports mobile, tablet, and desktop viewports.
-- **Security**: Smart contract interactions, such as creating scholarships and distributing funds, require user signatures via the wallet.
+- **Security**: Smart contract interactions, like creating polls and voting, require user signatures via the wallet.
 - **Custom UI**: **Ant Design** provides a user-friendly and polished experience with form validation and pre-designed UI components.
