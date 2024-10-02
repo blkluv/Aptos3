@@ -21,11 +21,11 @@ const router = createBrowserRouter([
         element: <Mint />,
       },
       {
-        path: "create-scholarship",
+        path: "create-poll",
         element: <CreateCollection />,
       },
       {
-        path: "apply",
+        path: "vote",
         element: <MyCollections />,
       },
     ],

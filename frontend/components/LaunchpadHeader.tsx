@@ -19,13 +19,13 @@ export const LaunchpadHeader: FC<LaunchpadHeaderProps> = ({ title }) => {
         <Link className={buttonVariants({ variant: "link" })} to={"/"}>
           Home
         </Link>
-        {location.pathname === "/apply" ? (
-          <Link className={buttonVariants({ variant: "link" })} to={"/create-scholarship"}>
+        {location.pathname === "/vote" ? (
+          <Link className={buttonVariants({ variant: "link" })} to={"/create-poll"}>
             Create
           </Link>
         ) : (
-          <Link className={buttonVariants({ variant: "link" })} to={"/apply"}>
-            Apply here
+          <Link className={buttonVariants({ variant: "link" })} to={"/vote"}>
+            Vote
           </Link>
         )}
 
