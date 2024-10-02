@@ -18,9 +18,9 @@ export const config: Config = {
 
   ourStory: {
     title: "Our Story",
-    subTitle: "Innovative Scholarship Platform on Aptos",
+    subTitle: "Innovative Opinion Platform on Aptos",
     description:
-      "Welcome to Aptos Scholarships, where we bridge the gap between ambition and opportunity. Our blockchain-powered scholarship platform revolutionizes how students and donors connect, ensuring transparency, security, and fairness in the distribution of educational funds. Join us and be a part of a community committed to fostering the leaders of tomorrow.",
+      "The PublicOpinionPoll smart contract allows users to create and vote on decentralized polls using DIDs for identity verification. It tracks poll details, vote counts, and results, while enabling event-based interactions on Aptos.",
     discordLink: "https://discord.com",
     images: [Placeholder1, Placeholder2, Placeholder3],
   },
@@ -57,29 +57,27 @@ export const config: Config = {
 
     questions: [
       {
-        title: "Is this project is Free for creator and applicant?",
-        description:
-          "Yesss! This project is completely Free to use and you can create as many scholarships as you want.",
+        title: "Is this project is Free for creator and voter?",
+        description: "Yesss! This project is completely Free to use and you can create as many Poll as you want.",
       },
       {
-        title: "How To Create Scholarships brief info?",
+        title: "How To Create POLLs brief info?",
         description:
-          "To Create Scholarship You first Need to initialized scholarships from Scholarship Provider Dashboard and then you can create scholarships. by filling the form and submitting it. Make sure to fill the form correctly it not reversible.",
+          "To create a poll, connect your wallet, enter a question, options for answers, and submit. Your poll will be added to the blockchain for participants to vote.",
       },
       {
-        title: "How Distribution of scholarship works?",
+        title: "How do I vote in a poll?",
         description:
-          "Its really simple that you thing!, Once you successfully applied to scholarship and your GPA is above the required GPA you will get the scholarship amount in your account.",
+          "Simply choose the poll you want to participate in, select your preferred option, and submit your vote. All votes are recorded securely on the blockchain.",
       },
       {
-        title: "How how can i get my money back after scholarship?",
+        title: "Is it safe to use?",
         description:
-          "You will get your full refund if you close your scholarship or after distribution of scholarship you will get remaining funds.",
+          "Yes, Opinion Poll leverages blockchain security, ensuring votes cannot be tampered with and are transparently recorded.",
       },
       {
-        title: "What if I want to close scholarship due to some reason?",
-        description:
-          "We kept that in our mind while building this awesome project you can close your scholarships you have created and after that you will get your funds back to your account.",
+        title: "Can I close a poll?",
+        description: "As a poll creator, you can close your poll when it's complete to stop further voting.",
       },
     ],
   },
