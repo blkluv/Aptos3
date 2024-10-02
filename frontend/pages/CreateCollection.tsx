@@ -1,22 +1,17 @@
-// External packages
-import { isMobile, useWallet } from "@aptos-labs/wallet-adapter-react";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-// Internal utils
-import { aptosClient } from "@/utils/aptosClient";
-// Internal components
 import { LaunchpadHeader } from "@/components/LaunchpadHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-// Entry functions
 import { MODULE_ADDRESS } from "@/constants";
+import { aptosClient } from "@/utils/aptosClient";
 import { InputViewFunctionData } from "@aptos-labs/ts-sdk";
+import { isMobile, useWallet } from "@aptos-labs/wallet-adapter-react";
 import { DatePicker, Form, message, Radio } from "antd";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export function CreateCollection() {
-  // Wallet Adapter provider
   const { account, signAndSubmitTransaction } = useWallet();
   const [polls, setPolls] = useState<Poll[]>([]);
   const [pollsCreatedBy, setPollsCreatedBy] = useState<Poll[]>([]);
@@ -44,7 +39,7 @@ export function CreateCollection() {
   const handleOptionChange = (poll_id: number, value: any) => {
     setSelectedOptions((prev) => ({
       ...prev,
-      [poll_id]: value, // Update the selected option for this poll
+      [poll_id]: value,
     }));
   };
 
@@ -239,12 +234,12 @@ export function CreateCollection() {
 
   return (
     <>
-      <LaunchpadHeader title="Create Scholarships" />
+      <LaunchpadHeader title="Create Polls" />
       <div className="flex flex-col md:flex-row items-start justify-between px-4 py-2 gap-4 max-w-screen-xl mx-auto">
         <div className="w-full md:w-2/3 flex flex-col gap-y-4 order-2 md:order-1">
           <Card>
             <CardHeader>
-              <CardDescription>Create Scholarship</CardDescription>
+              <CardDescription>Create Opinion Polls</CardDescription>
             </CardHeader>
             <CardContent>
               <Form

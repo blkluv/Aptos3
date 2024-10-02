@@ -80,11 +80,9 @@ export function MyCollections() {
 
       console.log("Transaction:", transaction);
       message.success(`Successfully To Scholarship! ${values.scholarship_id}`);
-
-      fetchAllScholarships(); // Refresh scholarships
+      fetchAllScholarships();
     } catch (error) {
       if (typeof error === "object" && error !== null && "code" in error && (error as { code: number }).code === 4001) {
-        // Standard error code for user rejection
         message.error("Transaction rejected by user.");
       } else {
         if (error instanceof Error) {
@@ -111,14 +109,12 @@ export function MyCollections() {
 
       const scholarshipIDS = result.map((scholarshipIDS) => ({
         appliedScholarshipIDS: String(scholarshipIDS),
-        // gpa: 3.5, // Placeholder for GPA (or fetch from another function if available)
       }));
 
       setAppliedScholarships(scholarshipIDS as { appliedScholarshipIDS: string }[]);
       console.log("Applicant Data:", scholarshipIDS);
     } catch (error) {
       if (typeof error === "object" && error !== null && "code" in error && (error as { code: number }).code === 4001) {
-        // Standard error code for user rejection
         message.error("Transaction rejected by user.");
       } else {
         if (error instanceof Error) {
