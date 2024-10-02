@@ -1,12 +1,11 @@
 [package]
-name = "ScholarshipPlatform"
+name = "OpinionPoll"
 version = "0.0.0"
 
 [dependencies]
 AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework", rev = "mainnet" }
 
 [addresses]
-my_addrx = "25c8f2d9f9f8da2e858ce241b17fc32b9a157977dd1c8089b39115a5c459b4e7"
+my_addrx = "53ebd2be721663376dc5a39997d54f160bfb4195da6db5edb97fab2927e90c37"
+poll_addrx="0xca10b0176c34f9a8315589ff977645e04497814e9753d21f7d7e7c3d83aa7b57"
 std = "0x1"
-donor_addrx="0xda9c8cb7b5536700f36dd6fbfa4f8dce2ca43a519782bd29e0112ac19d12bd1e"
-applicant_addrx="0xda9c8cb7b5536700f36dd6fbfa4f8dce2ca43a519782bd29e0112ac19d12bd1e"
