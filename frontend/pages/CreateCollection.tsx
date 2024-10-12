@@ -9,7 +9,6 @@ import { isMobile, useWallet } from "@aptos-labs/wallet-adapter-react";
 import { DatePicker, Form, message, Radio } from "antd";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 export function CreateCollection() {
   const { account, signAndSubmitTransaction } = useWallet();
@@ -34,6 +33,7 @@ export function CreateCollection() {
   useEffect(() => {
     fetchAllPolls();
     fetchAllPollsCreatedBy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account]);
 
   const handleOptionChange = (poll_id: number, value: any) => {
@@ -61,18 +61,6 @@ export function CreateCollection() {
       },
     };
   };
-
-  // function formatTimestamp(timestamp: number) {
-  //   const date = new Date(Number(timestamp * 1000));
-  //   const day = String(date.getDate()).padStart(2, "0");
-  //   const month = date.toLocaleString("en-US", { month: "short" }).toUpperCase();
-  //   const year = date.getFullYear();
-  //   const hours = String(date.getHours()).padStart(2, "0");
-  //   const minutes = String(date.getMinutes()).padStart(2, "0");
-  //   const returnDate = `${day} ${month} ${year} ${hours}:${minutes}`;
-
-  //   return returnDate;
-  // }
 
   const disabledDate = (current: any) => {
     return current && current < moment().endOf("day");
@@ -117,7 +105,6 @@ export function CreateCollection() {
         console.error("Transaction Error:", error);
       }
       console.log("Error creating scholarship.", error);
-    } finally {
     }
   };
 
@@ -149,7 +136,6 @@ export function CreateCollection() {
       console.log(polls);
     } catch (error) {
       console.error("Failed to fetch Polls:", error);
-    } finally {
     }
   };
 
@@ -188,7 +174,6 @@ export function CreateCollection() {
       console.log(pollsCreatedBy);
     } catch (error) {
       console.error("Failed to fetch Polls by address:", error);
-    } finally {
     }
   };
 
@@ -235,8 +220,8 @@ export function CreateCollection() {
   return (
     <>
       <LaunchpadHeader title="Create Polls" />
-      <div className="flex flex-col md:flex-row items-start justify-between px-4 py-2 gap-4 max-w-screen-xl mx-auto">
-        <div className="w-full md:w-2/3 flex flex-col gap-y-4 order-2 md:order-1">
+      <div className="flex flex-col items-center justify-center px-4 py-2 gap-4 max-w-screen-xl mx-auto">
+        <div className="w-full flex flex-col gap-y-4">
           <Card>
             <CardHeader>
               <CardDescription>Create Opinion Polls</CardDescription>
@@ -329,20 +314,6 @@ export function CreateCollection() {
                   </Card>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="w-full md:w-1/3 order-1 md:order-2">
-          <Card>
-            <CardHeader className="body-md-semibold">Learn More</CardHeader>
-            <CardContent>
-              <Link
-                to="https://github.com/kunaldhongade/Aptos-opinion-poll"
-                className="body-sm underline"
-                target="_blank"
-              >
-                Find out more about the Platform
-              </Link>
             </CardContent>
           </Card>
         </div>
