@@ -1,96 +1,199 @@
-# Public Opinion Poll Frontend
+# 🚀 Public Opinion Poll - Frontend
 
-This project is the frontend interface for the **Public Opinion Poll** smart contract built on the Aptos blockchain. It enables users to create, participate in, and view the results of polls in a decentralized manner. The application is developed using **React** and **TypeScript**, utilizing **Ant Design** for the user interface and **Aptos SDK** for blockchain interactions.
+Welcome to the **Public Opinion Poll** frontend, a decentralized application built on the **Aptos Blockchain**. This platform enables users to create polls, participate in voting, and view results transparently and securely through blockchain-based smart contracts. Poll creators can manage participation and finalize results with seamless identity verification using DIDs (Decentralized Identifiers).
 
-## Features
+---
 
-- **Create Polls**: Users can create new polls by specifying the question and options.
-- **Vote on Polls**: Participants can cast their votes for options in open polls.
-- **View Poll Results**: Users can view the total votes for each option and overall results for the polls.
-- **Close Polls**: Poll creators can close polls once the voting period is over.
-- **Voter Identification**: Votes are associated with users' DID strings for identity verification.
+## 🔗 Links
 
-## Prerequisites
+- **Live Demo**: [Public Opinion Poll](https://aptos-opinion-poll.vercel.app)
+- **Smart Contract Explorer**: [Aptos Explorer](https://explorer.aptoslabs.com/account/0x53ebd2be721663376dc5a39997d54f160bfb4195da6db5edb97fab2927e90c37/modules/code/OpinionPoll?network=testnet)
 
-Ensure you have the following installed before running the project:
+---
 
-- **Node.js** (v14.x or later)
-- **npm** or **yarn** (for dependency management)
-- **Aptos-compatible wallet** (e.g., Petra Wallet) for interacting with the blockchain
+## ✨ Key Features
 
-## Wallet Setup
+- **Create Polls**: Users can create new polls by defining a question and multiple-choice options.
+- **Vote on Polls**: Participants can vote for options in open polls using their DIDs.
+- **View Poll Results**: Users can view real-time poll results with individual and total vote counts.
+- **Close Polls**: Poll creators can close polls to end voting and finalize results.
+- **DID Verification**: Votes are linked to users’ DIDs to prevent duplicate voting and ensure transparency.
 
-Make sure your Aptos-compatible wallet is set to **Devnet** for development purposes:
+---
 
-1. Install **Petra Wallet** or another Aptos-compatible wallet.
-2. Switch the wallet network to **Devnet**.
-3. Use the **Aptos Faucet** to fund your account with test tokens.
+## 📋 Prerequisites
 
-## Getting Started
+Make sure you have the following installed:
 
-### 1. Install Dependencies
+- **Node.js** (v16 or higher)
+- **npm** or **yarn**
+- **Aptos Wallet** (e.g., **Petra Wallet**) for blockchain transactions
 
-Run the following command to install all the necessary packages:
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+
+Clone the project and navigate to the project folder:
+
+```bash
+cd public-opinion-poll
+```
+
+### 2. Install Dependencies
+
+Install the necessary dependencies:
 
 ```bash
 npm install
 ```
 
-### 2. Configure the Environment
+### 3. Configure Environment Variables
 
-Create a `.env` file and specify your **Aptos Devnet** or **Testnet** endpoint URLs:
+Create a `.env` file in the root directory and add:
 
 ```bash
 VITE_APP_NETWORK=testnet
-VITE_MODULE_ADDRESS="0x5fbab942388be12bc96e623fcc22d7c71bd76bede6a0b828de4c351e7aebcc1e"
+VITE_MODULE_ADDRESS="0x53ebd2be721663376dc5a39997d54f160bfb4195da6db5edb97fab2927e90c37"
 ```
 
-### 3. Run the Development Server
+### 4. Run the Development Server
 
-Launch the application locally using the command:
+Start the local server with:
 
 ```bash
 npm run dev
 ```
 
-Once the server starts, open your browser and navigate to `http://localhost:5174`.
+The app will be available at [http://localhost:5173](http://localhost:5173).
 
-## Interacting with the Application
+### 5. Deploy the Smart Contract
 
-1. **Connect Wallet**: On the landing page, click "Connect Wallet" to connect your **Petra Wallet** (or any Aptos-compatible wallet).
-2. **Create a Poll**: Navigate to the "Create Poll" section, fill in the poll details (e.g., question and options), and submit. This will create a poll on the blockchain.
-3. **Vote on a Poll**: Participants can vote for their preferred option by providing their DID and selecting an option from the available choices.
-4. **View Poll Results**: Users can browse through active polls and view detailed results, including the total votes for each option.
-5. **Close a Poll**: Poll creators can close polls once they decide the voting period is over.
+To deploy the smart contract:
 
-## Tech Stack
+1.  Install **Aptos CLI**.
+2.  Update the **Move.toml** file with your wallet address:
 
-- **React** (JavaScript library for building user interfaces)
-- **TypeScript** (Strongly typed JavaScript)
-- **Ant Design** (UI library for elegant and responsive components)
-- **Tailwind CSS** (Utility-first CSS framework for responsive design)
-- **Aptos SDK** (Aptos blockchain interaction)
+    - Add you Wallet Address from Petra here
 
-## Smart Contract Overview
+    ```bash
+    poll_addrx = "0xca10b0176c34f9a8315589ff977645e04497814e9753d21f7d7e7c3d83aa7b57"
+    ```
 
-The **Public Opinion Poll** smart contract manages the creation and voting of polls. Below is a summary of key functions.
+3.  Create your new Address for Deployment
 
-### Poll Management
+    ```bash
+    aptos init
+    ```
 
-1. **create_poll(account: &signer, question: string::String, options: vector<string::String>)**: Creates a new poll with the specified question and options.
-2. **vote(did: string::String, poll_id: u64, option_index: u64)**: Allows users to cast their vote on a specific poll.
-3. **close_poll(account: &signer, poll_id: u64)**: Closes the poll and prevents further voting.
-4. **get_poll_results(poll_id: u64)**: Retrieves the total votes and individual option votes for a specific poll.
-5. **get_poll(poll_id: u64)**: Fetches details about a specific poll, including the question and options.
+    - Add your Account addr here for Deployment
 
-## Testing the Platform
+    ```bash
+    my_addrx = "53ebd2be721663376dc5a39997d54f160bfb4195da6db5edb97fab2927e90c37"
+    ```
 
-- Use the **Aptos Faucet** to fund your test accounts on **Devnet**.
-- Interactions such as creating polls and voting will trigger blockchain transactions. Ensure you have enough test tokens for gas fees.
-- Check your wallet for transaction requests when interacting with the platform.
+4.  Compile and publish the contract:
 
-## Additional Notes
+    ```bash
+    aptos move compile
+    aptos move publish
+    ```
 
-- **Responsive Design**: This platform is fully responsive using **Tailwind CSS**. It supports mobile, tablet, and desktop viewports.
-- **Security**: Smart contract interactions, like creating polls and voting, require user signatures via the wallet.
-- **Custom UI**: **Ant Design** provides a user-friendly and polished experience with form validation and pre-designed UI components.
+---
+
+## 🛠 How to Use the Platform
+
+### 1. Connect Wallet
+
+- Click **Connect Wallet** to link your Aptos wallet (e.g., Petra Wallet).
+- This allows you to create polls, cast votes, and manage your participation.
+
+### 2. Create a Poll
+
+1. Navigate to **Create Poll**.
+2. Provide the poll question and options.
+3. Submit to create the poll on the blockchain.
+
+### 3. Vote on a Poll
+
+1. Browse available polls under **Active Polls**.
+2. Select a poll and enter your vote along with your DID.
+3. Confirm the transaction via your wallet to cast your vote.
+
+### 4. View Poll Results
+
+Users can browse the **Results** section to view detailed voting results, including:
+
+- Total votes per option
+- Overall participation
+- Status of the poll (Open/Closed)
+
+### 5. Close a Poll (For Creators)
+
+Poll creators can:
+
+1. Navigate to **Manage Polls**.
+2. Select a poll and click **Close Poll**.
+3. Finalize the poll, locking the results.
+
+---
+
+## 📊 Scripts
+
+- **`npm run dev`**: Starts the development server.
+- **`npm run build`**: Builds the app for production.
+- **`npm test`**: Runs tests.
+
+---
+
+## 🔍 Dependencies
+
+- **React**: JavaScript library for building user interfaces.
+- **TypeScript**: Typed superset of JavaScript for enhanced development.
+- **Aptos SDK**: For interacting with the Aptos blockchain.
+- **Ant Design**: Elegant and responsive UI components.
+- **Tailwind CSS**: Utility-first framework for custom styling.
+- **Petra Wallet Adapter**: For wallet integration with Aptos.
+
+---
+
+## 📚 Available Smart Contract Functions
+
+1. **create_poll(account, question, options)**: Creates a poll on the blockchain.
+2. **vote(did, poll_id, option_index)**: Records a user's vote.
+3. **get_poll(poll_id)**: Retrieves poll details, including options and votes.
+4. **get_poll_results(poll_id)**: Fetches the total votes for each option.
+5. **close_poll(account, poll_id)**: Closes the poll to end voting.
+
+---
+
+## 🛡 Security and Transparency
+
+- **Smart Contracts**: All poll operations are managed by blockchain-based smart contracts.
+- **DID Verification**: Votes are linked to users’ decentralized identifiers to ensure transparency and fairness.
+- **Immutable Records**: All transactions and votes are permanently recorded on the blockchain.
+
+---
+
+## 🌐 Common Issues and Solutions
+
+1. **Wallet Connection Issues**: Ensure your Aptos-compatible wallet is installed and set to the correct network (e.g., **Testnet**).
+2. **RPC Rate Limits**: If public RPC nodes reach their request limits, consider using private RPC nodes.
+3. **Transaction Failures**: Verify wallet permissions and ensure sufficient test tokens for gas fees.
+
+---
+
+## 🚀 Scaling and Deployment
+
+If deploying on **Vercel** or other platforms, you may encounter RPC rate limits. Consider:
+
+- Using **QuickNode** or **Alchemy** as RPC providers.
+- Implementing **request throttling** to avoid exceeding limits.
+- Switching to **WebSockets** for real-time updates.
+
+---
+
+## 🎉 Conclusion
+
+The **Public Opinion Poll** platform offers a secure and transparent way to create, participate in, and manage polls using the power of blockchain. With a user-friendly interface and reliable identity verification through DIDs, the platform ensures fairness in voting and a seamless experience for both participants and poll creators.
