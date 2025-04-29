@@ -3,7 +3,7 @@ import Placeholder2 from "@/assets/placeholders/jersey-club-2.png";
 import Placeholder3 from "@/assets/placeholders/jersey-club-3.png";
 
 export const config: Config = {
-  // Social links relevant to Jersey Club music
+
   socials: {
     twitter: "https://twitter.com/jerseyclubtv",
     homepage: "https://poll.jersey.fm",
