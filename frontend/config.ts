@@ -1,27 +1,26 @@
-import Placeholder1 from "@/assets/placeholders/bear-1.png";
-import Placeholder2 from "@/assets/placeholders/bear-2.png";
-import Placeholder3 from "@/assets/placeholders/bear-3.png";
+import Placeholder1 from "@/assets/placeholders/jersey-club-1.png";
+import Placeholder2 from "@/assets/placeholders/jersey-club-2.png";
+import Placeholder3 from "@/assets/placeholders/jersey-club-3.png";
 
 export const config: Config = {
-  // Removing one or all of these socials will remove them from the page
+  // Social links relevant to Jersey Club music
   socials: {
-    twitter: "https://twitter.com",
-    discord: "https://discord.com",
-    homepage: "https://example.com",
+    twitter: "https://twitter.com/jerseyclubtv",
+    homepage: "https://poll.jersey.fm",
   },
 
   defaultCollection: {
-    name: "Polls Collection",
-    description: "A collection of decentralized polls where users can cast votes and view results securely.",
+    name: "Jersey Club Music Polls",
+    description: "Decentralized polls where Jersey Club music fans vote for their favorite tracks, artists, and events using emoji-based options.",
     image: Placeholder1,
   },
 
   ourStory: {
     title: "Our Story",
-    subTitle: "Innovative Opinion Platform on Aptos",
+    subTitle: "Bringing Jersey Club to the Blockchain",
     description:
-      "The PublicOpinionPoll smart contract allows users to create and vote on decentralized polls using DIDs for identity verification. It tracks poll details, vote counts, and results, while enabling event-based interactions on Aptos.",
-    discordLink: "https://discord.com",
+      "Jersey Club Music Polls is a unique platform where fans of Jersey Club music can participate in decentralized polls. Fans can vote on their favorite tracks, artists, and events using emoji-based options like 💃🏽, 🎶, or 🔥. The power of blockchain ensures that every vote is securely recorded, tamper-proof, and transparent.",
+    discordLink: "https://discord.com/invite/jerseyclub",
     images: [Placeholder1, Placeholder2, Placeholder3],
   },
 
@@ -33,12 +32,12 @@ export const config: Config = {
         role: "Blockchain Developer",
         img: Placeholder1,
         socials: {
-          twitter: "https://twitter.com",
+          twitter: "https://twitter.com/jerseyclubdev",
         },
       },
       {
         name: "Jordan",
-        role: "Marketing Specialist",
+        role: "Jersey Club Expert & Curator",
         img: Placeholder2,
       },
       {
@@ -46,7 +45,7 @@ export const config: Config = {
         role: "Community Manager",
         img: Placeholder3,
         socials: {
-          twitter: "https://twitter.com",
+          twitter: "https://twitter.com/jerseyclubfans",
         },
       },
     ],
@@ -57,27 +56,27 @@ export const config: Config = {
 
     questions: [
       {
-        title: "Is this project free for creators and voters?",
-        description: "Yes! This project is completely free to use, and you can create as many polls as you want.",
+        title: "Is this platform free to use for creators and voters?",
+        description: "Yes! Both creators and voters can participate in Jersey Club music polls free of charge.",
       },
       {
-        title: "How do I create a poll?",
+        title: "How do I create a Jersey Club poll?",
         description:
-          "To create a poll, connect your wallet, enter a question, provide options for answers, and submit. Your poll will be added to the blockchain for participants to vote.",
+          "To create a poll, simply connect your wallet, enter a question about Jersey Club music, provide emoji-based options (like 💃🏽 for dance tracks or 🎶 for favorite beats), and submit. Your poll will be securely added to the blockchain for others to vote on.",
       },
       {
-        title: "How do I vote in a poll?",
+        title: "How do I vote in a Jersey Club poll?",
         description:
-          "Simply choose the poll you want to participate in, select your preferred option, and submit your vote. All votes are recorded securely on the blockchain.",
+          "Select a poll that interests you, choose an emoji to represent your favorite Jersey Club track, artist, or event (💃🏽 for dance anthems, 🔥 for hype tracks, or 🎶 for smooth beats), and submit your vote. All votes are transparently recorded on the blockchain.",
       },
       {
-        title: "Is it safe to use?",
+        title: "Is it safe to vote and create polls?",
         description:
-          "Yes, the platform leverages blockchain security, ensuring that votes cannot be tampered with and are transparently recorded.",
+          "Absolutely! Our platform uses blockchain technology to ensure that all votes are secure, transparent, and tamper-proof.",
       },
       {
-        title: "Can I close a poll?",
-        description: "As a poll creator, you can close your poll once it's complete to stop further voting.",
+        title: "Can I close a poll after it's done?",
+        description: "Yes, as a poll creator, you can close your poll to prevent further votes once the voting period ends.",
       },
     ],
   },

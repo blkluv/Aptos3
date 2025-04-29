@@ -220,8 +220,8 @@ export function CreateCollection() {
   return (
     <>
       <LaunchpadHeader title="Create Polls" />
-      <div className="flex flex-col items-center justify-center px-4 py-2 gap-4 max-w-screen-xl mx-auto">
-        <div className="w-full flex flex-col gap-y-4">
+      <div className="flex flex-col items-center justify-center max-w-screen-xl gap-4 px-4 py-2 mx-auto">
+        <div className="flex flex-col w-full gap-y-4">
           <Card>
             <CardHeader>
               <CardDescription>Create Opinion Polls</CardDescription>
@@ -269,7 +269,7 @@ export function CreateCollection() {
                   />
                 </Form.Item>
                 <Form.Item>
-                  <Button variant="submit" size="lg" className="text-base w-full" type="submit">
+                  <Button variant="submit" size="lg" className="w-full text-base" type="submit">
                     Create Poll
                   </Button>
                 </Form.Item>
@@ -284,9 +284,9 @@ export function CreateCollection() {
             <CardContent>
               <div className="p-2">
                 {pollsCreatedBy.map((poll, index) => (
-                  <Card key={index} className="mb-6 shadow-lg p-4">
-                    <h4 className="text-xl font-bold mb-2">{poll.question}</h4>
-                    <p className="text-sm text-gray-500 mb-4">Poll ID: {poll.poll_id}</p>
+                  <Card key={index} className="p-4 mb-6 shadow-lg">
+                    <h4 className="mb-2 text-xl font-bold">{poll.question}</h4>
+                    <p className="mb-4 text-sm text-gray-500">Poll ID: {poll.poll_id}</p>
 
                     {/* Radio Group for Options */}
                     <Radio.Group
@@ -295,20 +295,20 @@ export function CreateCollection() {
                       className="flex flex-col space-y-4"
                     >
                       <Radio value={0} className="flex items-center space-x-3">
-                        <div className="p-2  rounded-lg">{poll.option1}</div>
+                        <div className="p-2 rounded-lg">{poll.option1}</div>
                       </Radio>
                       <Radio value={1} className="flex items-center space-x-3">
-                        <div className="p-2  rounded-lg">{poll.option2}</div>
+                        <div className="p-2 rounded-lg">{poll.option2}</div>
                       </Radio>
                       <Radio value={2} className="flex items-center space-x-3">
-                        <div className="p-2  rounded-lg">{poll.option3}</div>
+                        <div className="p-2 rounded-lg">{poll.option3}</div>
                       </Radio>
                       <Radio value={3} className="flex items-center space-x-3">
-                        <div className="p-2  rounded-lg">{poll.option4}</div>
+                        <div className="p-2 rounded-lg">{poll.option4}</div>
                       </Radio>
                     </Radio.Group>
 
-                    <Button type="submit" className="mt-4 w-full" size="lg" onClick={() => handleVote(poll.poll_id)}>
+                    <Button type="submit" className="w-full mt-4" size="lg" onClick={() => handleVote(poll.poll_id)}>
                       Vote
                     </Button>
                   </Card>

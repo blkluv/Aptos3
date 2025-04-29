@@ -9,10 +9,10 @@ module my_addrx::OpinionPoll {
         poll_id: u64,
         creator: address,
         question: String,
-        option1: String,
-        option2: String,
-        option3: String,
-        option4: String,
+        option1: String,   // Use Jersey Club emojis here
+        option2: String,   // Use Jersey Club emojis here
+        option3: String,   // Use Jersey Club emojis here
+        option4: String,   // Use Jersey Club emojis here
         votes: vector<u64>,
         voters: vector<address>,
         end_time: u64,
@@ -36,7 +36,7 @@ module my_addrx::OpinionPoll {
     const ERR_INVALID_OPTION: u64 = 2;
     const ERR_POLL_MUST_HAVE_4_OPTIONS: u64 = 3;
     const ERR_POLL_ALREADY_INITIALIZED: u64 = 4;
-    const ERR_POLL_ALREADY_CLOASED: u64 = 5;
+    const ERR_POLL_ALREADY_CLOSED: u64 = 5;
     const ERR_UNAUTHORIZED_ACCESS: u64 = 6;
 
     // Initialize Polls Holder
@@ -59,15 +59,15 @@ module my_addrx::OpinionPoll {
         };
     }
 
-    // Create a new poll
+    // Create a new Jersey Club poll (Jersey Club music emojis in options)
     public entry fun create_poll(
         creator: &signer,
         poll_id : u64,
         question: String,
-        option1: String,
-        option2: String,
-        option3: String,
-        option4: String,
+        option1: String,   // Example: "🎶"
+        option2: String,   // Example: "🔥"
+        option3: String,   // Example: "💃"
+        option4: String,   // Example: "🕺"
         duration: u64
         ) acquires PollsHolder , CreatorAddresses {
         let creator_addr = signer::address_of(creator);
@@ -97,7 +97,7 @@ module my_addrx::OpinionPoll {
         add_creator_address(creator_addr);
     }
 
-    // Vote in a poll
+    // Vote in a Jersey Club music poll
     public entry fun vote_in_poll(
         voter: &signer,
         poll_id: u64,
@@ -110,7 +110,7 @@ module my_addrx::OpinionPoll {
         let poll_index = 0;
         let found_poll = false;
 
-        // First, find the index of the poll by poll_id
+        // Find the poll by poll_id
         let i = 0;
         while (i < polls_len) {
             let current_poll_ref = vector::borrow(&polls_holder.polls, i);
@@ -138,8 +138,8 @@ module my_addrx::OpinionPoll {
         };
 
         // Check if the poll is still open and if the option index is valid
-        assert!(timestamp::now_seconds() <= poll_ref.end_time, ERR_POLL_ALREADY_CLOASED);
-        assert!(poll_ref.is_open, ERR_POLL_ALREADY_CLOASED);
+        assert!(timestamp::now_seconds() <= poll_ref.end_time, ERR_POLL_ALREADY_CLOSED);
+        assert!(poll_ref.is_open, ERR_POLL_ALREADY_CLOSED);
         assert!(option_index < 4, ERR_INVALID_OPTION);
 
         // Add voter to the list and update the vote count
@@ -148,6 +148,7 @@ module my_addrx::OpinionPoll {
         *current_votes = *current_votes + 1;
     }
 
+    // Close the poll
     public entry fun close_poll(
         creator: &signer,
         poll_id: u64
@@ -155,7 +156,7 @@ module my_addrx::OpinionPoll {
         let polls_holder = borrow_global_mut<PollsHolder>(GLOBAL_POLLS_ADDRESS);
         let polls_len = vector::length(&polls_holder.polls);
 
-        // Find the index of the poll by poll_id
+        // Find the poll by poll_id
         let poll_index = 0;
         let found = false;
 
@@ -182,7 +183,6 @@ module my_addrx::OpinionPoll {
         // Mark the poll as closed
         poll_ref.is_open = false;
     }
-
 
     // View all polls with their details
     #[view]
@@ -212,6 +212,7 @@ module my_addrx::OpinionPoll {
         assert!(false, ERR_POLL_NOT_FOUND);
         return @0x0 // This is just to satisfy the compiler
     }
+
     // View specific poll details by poll ID
     #[view]
     public fun view_poll_by_id(poll_id: u64): Poll acquires PollsHolder {
@@ -260,151 +261,24 @@ module my_addrx::OpinionPoll {
         // Get a reference to the poll
         let poll_ref = vector::borrow(&polls_holder.polls, poll_index);
 
-        let highest_votes = 0;
-        let highest_option = utf8(b"");
+        // Find the option with the highest vote
+        let highest_vote = *vector::borrow(&poll_ref.votes, 0);
+        let mut highest_option = poll_ref.option1;
 
-        // Iterate through the votes vector to find the highest vote count
-        let j = 0;
-        let votes_len = vector::length(&poll_ref.votes);
-
-        while (j < votes_len) {
-            let votes = vector::borrow(&poll_ref.votes, j);
-
-            if (*votes > highest_votes) {
-                highest_votes = *votes;
-
-                // Set the highest voted option
-                if (j == 0) {
-                    highest_option = poll_ref.option1;
-                } else if (j == 1) {
-                    highest_option = poll_ref.option2;
-                } else if (j == 2) {
-                    highest_option = poll_ref.option3;
-                } else {
-                    highest_option = poll_ref.option4;
+        let mut j = 1;
+        while (j < 4) {
+            let option_votes = *vector::borrow(&poll_ref.votes, j);
+            if (option_votes > highest_vote) {
+                highest_option = match j {
+                    1 => poll_ref.option2,
+                    2 => poll_ref.option3,
+                    3 => poll_ref.option4,
+                    _ => highest_option,
                 };
             };
             j = j + 1;
         };
 
-        return (highest_option, highest_votes)
+        return (highest_option, highest_vote);
     }
-
-    #[view]
-    public fun view_highest_voted_All_options(poll_id: u64): (vector<String>, u64) acquires PollsHolder {
-        let polls_holder = borrow_global<PollsHolder>(GLOBAL_POLLS_ADDRESS);
-        let polls_len = vector::length(&polls_holder.polls);
-
-        // Find the poll by poll_id
-        let poll_index = 0;
-        let found = false;
-        let i = 0;
-        while (i < polls_len) {
-            let current_poll_ref = vector::borrow(&polls_holder.polls, i);
-            if (current_poll_ref.poll_id == poll_id) {
-                poll_index = i;
-                found = true;
-                break
-            };
-            i = i + 1;
-        };
-
-        // Ensure the poll exists
-        assert!(found, ERR_POLL_NOT_FOUND);
-
-        // Get a reference to the poll
-        let poll_ref = vector::borrow(&polls_holder.polls, poll_index);
-
-        let highest_votes = 0;
-        let highest_options: vector<String> = vector::empty<String>();
-
-        // Iterate through the votes vector to find the highest vote count
-        let j = 0;
-        let votes_len = vector::length(&poll_ref.votes);
-
-        while (j < votes_len) {
-            let votes = vector::borrow(&poll_ref.votes, j);
-
-            if (*votes > highest_votes) {
-                highest_votes = *votes;
-                // Clear the highest options vector by reassigning a new empty vector
-                highest_options = vector::empty<String>();
-                if (j == 0) {
-                    vector::push_back(&mut highest_options, poll_ref.option1);
-                } else if (j == 1) {
-                    vector::push_back(&mut highest_options, poll_ref.option2);
-                } else if (j == 2) {
-                    vector::push_back(&mut highest_options, poll_ref.option3);
-                } else {
-                    vector::push_back(&mut highest_options, poll_ref.option4);
-                };
-            } else if (*votes == highest_votes) {
-                // If the vote count is the same as the highest, add this option too
-                if (j == 0) {
-                    vector::push_back(&mut highest_options, poll_ref.option1);
-                } else if (j == 1) {
-                    vector::push_back(&mut highest_options, poll_ref.option2);
-                } else if (j == 2) {
-                    vector::push_back(&mut highest_options, poll_ref.option3);
-                } else {
-                    vector::push_back(&mut highest_options, poll_ref.option4);
-                };
-            };
-            j = j + 1;
-        };
-
-        // Return all options with the highest votes and the vote count
-        return (highest_options, highest_votes)
-    }
-
-
-
-    #[view]
-    public fun view_polls_by_creator(creator: address): vector<Poll> acquires PollsHolder {
-        let polls_holder = borrow_global<PollsHolder>(GLOBAL_POLLS_ADDRESS);
-        let polls_len = vector::length(&polls_holder.polls);
-        let result = vector::empty<Poll>();
-
-        let i = 0;
-        // Iterate over all polls and find polls where the creator matches the input address
-        while (i < polls_len) {
-            let poll_ref = vector::borrow(&polls_holder.polls, i);
-            if (poll_ref.creator == creator) {
-                vector::push_back(&mut result, *poll_ref);
-            };
-            i = i + 1;
-        };
-
-        return result // Return the vector of polls created by the specific address
-    }
-
-    #[view]
-    public fun view_polls_by_voter(voter: address): vector<Poll> acquires PollsHolder {
-        let polls_holder = borrow_global<PollsHolder>(GLOBAL_POLLS_ADDRESS);
-        let polls_len = vector::length(&polls_holder.polls);
-        let result = vector::empty<Poll>();
-
-        let i = 0;
-        // Iterate over all polls
-        while (i < polls_len) {
-            let poll_ref = vector::borrow(&polls_holder.polls, i);
-            let voters_len = vector::length(&poll_ref.voters);
-            
-            let j = 0;
-            // Check if the voter has voted in the current poll
-            while (j < voters_len) {
-                let addr = vector::borrow(&poll_ref.voters, j);
-                if (*addr == voter) {
-                    vector::push_back(&mut result, *poll_ref); // Add to result if the voter is found
-                    break
-                };
-                j = j + 1;
-            };
-
-            i = i + 1;
-        };
-
-        return result // Return the vector of polls where the voter has voted
-    }
-
 }

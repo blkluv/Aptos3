@@ -17,10 +17,10 @@ interface Poll {
   poll_id: number;
   creator: string;
   question: string;
-  option1: string;
-  option2: string;
-  option3: string;
-  option4: string;
+  option1: string;   // Example: "🎶"
+  option2: string;   // Example: "🔥"
+  option3: string;   // Example: "💃"
+  option4: string;   // Example: "🕺"
   votes: [];
   voters: [];
   is_open: boolean;
@@ -63,11 +63,8 @@ export function MyCollections() {
       console.log(scholarshipsList);
 
       setPolls(scholarshipsList);
-
-      console.log(polls);
     } catch (error) {
       console.error("Failed to fetch Polls:", error);
-    } finally {
     }
   };
 
@@ -146,8 +143,8 @@ export function MyCollections() {
   return (
     <>
       <LaunchpadHeader title="View All Polls" />
-      <div className="flex flex-col items-center justify-center px-4 py-2 gap-4 max-w-screen-xl mx-auto">
-        <div className="w-full flex flex-col gap-y-4">
+      <div className="flex flex-col items-center justify-center max-w-screen-xl gap-4 px-4 py-2 mx-auto">
+        <div className="flex flex-col w-full gap-y-4">
           <Card>
             <CardHeader>
               <CardDescription>All Available Polls on the Platform</CardDescription>
@@ -162,10 +159,30 @@ export function MyCollections() {
                   render={(creator: string) => creator.substring(0, 6)}
                   responsive={["lg"]}
                 />
-                <Column title="Opt 1" dataIndex="option1" responsive={["lg"]} />
-                <Column title="Opt 2" dataIndex="option2" responsive={["lg"]} />
-                <Column title="Opt 3" dataIndex="option3" responsive={["lg"]} />
-                <Column title="Opt 4" dataIndex="option4" responsive={["lg"]} />
+                <Column 
+                  title="Opt 1" 
+                  dataIndex="option1" 
+                  render={(option: string) => <span>{option}</span>} 
+                  responsive={["lg"]} 
+                />
+                <Column 
+                  title="Opt 2" 
+                  dataIndex="option2" 
+                  render={(option: string) => <span>{option}</span>} 
+                  responsive={["lg"]} 
+                />
+                <Column 
+                  title="Opt 3" 
+                  dataIndex="option3" 
+                  render={(option: string) => <span>{option}</span>} 
+                  responsive={["lg"]} 
+                />
+                <Column 
+                  title="Opt 4" 
+                  dataIndex="option4" 
+                  render={(option: string) => <span>{option}</span>} 
+                  responsive={["lg"]} 
+                />
 
                 <Column
                   title="Is Open"
@@ -196,7 +213,7 @@ export function MyCollections() {
                   onChange={(e) => setPollId(Number(e.target.value))}
                   style={{ marginBottom: 16 }}
                 />
-                <Button onClick={handleFetchPoll} variant="submit" size="lg" className="text-base w-full" type="submit">
+                <Button onClick={handleFetchPoll} variant="submit" size="lg" className="w-full text-base" type="submit">
                   Fetch Poll
                 </Button>
 
@@ -215,7 +232,7 @@ export function MyCollections() {
                       <List
                         bordered
                         dataSource={[poll.option1, poll.option2, poll.option3, poll.option4]}
-                        renderItem={(option, index) => <List.Item>{`${index} :  ${option}`}</List.Item>}
+                        renderItem={(option, index) => <List.Item>{`${index + 1}:  ${option}`}</List.Item>}
                       />
                       <Paragraph className="my-2">
                         <strong>Is Open:</strong>{" "}
@@ -260,9 +277,9 @@ export function MyCollections() {
             <CardContent>
               <div className="p-2">
                 {polls.map((poll, index) => (
-                  <Card key={index} className="mb-6 shadow-lg p-4">
-                    <h4 className="text-xl font-bold mb-2">{poll.question}</h4>
-                    <p className="text-sm text-gray-500 mb-4">Poll ID: {poll.poll_id}</p>
+                  <Card key={index} className="p-4 mb-6 shadow-lg">
+                    <h4 className="mb-2 text-xl font-bold">{poll.question}</h4>
+                    <p className="mb-4 text-sm text-gray-500">Poll ID: {poll.poll_id}</p>
 
                     {/* Radio Group for Options */}
                     <Radio.Group
@@ -271,20 +288,20 @@ export function MyCollections() {
                       className="flex flex-col space-y-4"
                     >
                       <Radio value={0} className="flex items-center space-x-3">
-                        <div className="p-2  rounded-lg">{poll.option1}</div>
+                        <div className="p-2 rounded-lg">{poll.option1}</div>
                       </Radio>
                       <Radio value={1} className="flex items-center space-x-3">
-                        <div className="p-2  rounded-lg">{poll.option2}</div>
+                        <div className="p-2 rounded-lg">{poll.option2}</div>
                       </Radio>
                       <Radio value={2} className="flex items-center space-x-3">
-                        <div className="p-2  rounded-lg">{poll.option3}</div>
+                        <div className="p-2 rounded-lg">{poll.option3}</div>
                       </Radio>
                       <Radio value={3} className="flex items-center space-x-3">
-                        <div className="p-2  rounded-lg">{poll.option4}</div>
+                        <div className="p-2 rounded-lg">{poll.option4}</div>
                       </Radio>
                     </Radio.Group>
 
-                    <Button type="submit" className="mt-4 w-full" size="lg" onClick={() => handleVote(poll.poll_id)}>
+                    <Button type="submit" className="w-full mt-4" size="lg" onClick={() => handleVote(poll.poll_id)}>
                       Vote
                     </Button>
                   </Card>
